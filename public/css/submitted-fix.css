@@ -32,3 +32,8 @@
   max-width: 280px;
 }
 
+
+.single-action {
+  max-width: none !important;
+  flex-wrap: wrap;
+}

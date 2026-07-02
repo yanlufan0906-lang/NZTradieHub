@@ -12,7 +12,11 @@
         <a href="{{ route('home') }}" class="brand-link">NZ Businesses</a>
         <div class="page-nav-links">
             <a href="{{ route('businesses.index') }}">Browse</a>
-            <a href="{{ route('contact.create') }}">Contact</a>
+            @if(session('demo_user'))
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}">Business Login</a>
+            @endif
             <a href="{{ route('businesses.register') }}" class="primary-link">List Your Business</a>
         </div>
     </nav>
@@ -21,8 +25,16 @@
         <a href="{{ url()->previous() }}" class="back-link">← Back</a>
 
         <section class="profile-card">
+            @if(! empty($business['cover_url']))
+                <img src="{{ asset($business['cover_url']) }}" alt="{{ $business['name'] }} cover photo" class="profile-cover-image">
+            @endif
             <span class="business-industry">{{ $business['industry'] }}</span>
-            <h1>{{ $business['name'] }}</h1>
+            <div class="profile-title-row">
+                @if(! empty($business['logo_url']))
+                    <img src="{{ asset($business['logo_url']) }}" alt="{{ $business['name'] }} logo" class="profile-logo-image">
+                @endif
+                <h1>{{ $business['name'] }}</h1>
+            </div>
             <div class="business-meta profile-meta">
                 <span>{{ $business['category'] }}</span>
                 <span>📍 {{ $business['location'] }}</span>

@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <title>{{ $title }}</title>
     <link rel="stylesheet" href="{{ asset('css/businesses.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
 <body>
     @include('partials.header')
-
-    <nav class="page-navbar">
-        <a href="{{ route('home') }}" class="brand-link">New Zealand Businesses</a>
-        <div class="page-nav-links">
-            <a href="{{ route('businesses.index') }}">Browse</a>
-            <a href="{{ route('contact.create') }}">Contact</a>
-            <a href="{{ route('businesses.register') }}" class="primary-link">List Your Business</a>
-        </div>
-    </nav>
 
     <main class="page-container narrow-container">
         <section class="profile-card">

@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request a Quote</title>
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/job-form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
 <body>
+    @include('partials.header')
+
     <div class="job-page">
         <div class="job-layout">
             <aside class="job-sidebar">
                 <h4>Quote request</h4>
-                <p>Complete the steps below so the selected business can understand your job.</p>
+                <p>Complete the steps below so a suitable business can understand your job.</p>
 
                 <div class="step active" data-sidebar-step="1">
                     <span>1</span>
@@ -126,11 +129,13 @@
                             <div class="form-group">
                                 <label>Your name <span>*</span></label>
                                 <input type="text" name="customer_name" id="nameInput" value="{{ old('customer_name') }}" required>
+                                <span class="field-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
                                 <label>Email <span>*</span></label>
                                 <input type="email" name="email" id="emailInput" value="{{ old('email') }}" required>
+                                <span class="field-error" aria-live="polite"></span>
                             </div>
                         </div>
 
@@ -138,6 +143,7 @@
                             <div class="form-group">
                                 <label>Phone <span>*</span></label>
                                 <input type="text" name="phone" id="phoneInput" value="{{ old('phone') }}" required>
+                                <span class="field-error" aria-live="polite"></span>
                             </div>
                         </div>
 
@@ -330,7 +336,7 @@
             // Hook into the existing step validation: when step 2 -> 3, email must be valid.
             const originalCurrentFieldsAreValid = currentFieldsAreValid;
             currentFieldsAreValid = function () {
-                return originalCurrentFieldsAreValid() && validateEmailAndPreventIfInvalid();
+                return originalCurrentFieldsAreValid() && (currentStep !== 2 || validateEmailAndPreventIfInvalid());
             };
         }
 
@@ -339,11 +345,11 @@
             const serviceInput = document.getElementById('serviceInput');
             const locationInput = document.getElementById('locationInput');
 
-            if (option?.dataset.service && !serviceInput.value.trim()) {
+            if (option?.dataset.service) {
                 serviceInput.value = option.dataset.service;
             }
 
-            if (option?.dataset.location && !locationInput.value.trim()) {
+            if (option?.dataset.location) {
                 locationInput.value = option.dataset.location;
             }
         });

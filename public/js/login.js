@@ -1,5 +1,7 @@
 const loginForm = document.querySelector('.login-form');
 const loginEmailField = document.querySelector('#login-email');
+const loginPasswordField = document.querySelector('#login-password');
+const quickDemoLoginField = document.querySelector('#quick-demo-login');
 
 function getLoginFieldWrapper(field) {
     return field.closest('.login-form__field');
@@ -8,7 +10,7 @@ function getLoginFieldWrapper(field) {
 function showLoginFieldError(field) {
     const fieldWrapper = getLoginFieldWrapper(field);
     const error = fieldWrapper.querySelector('.field-error');
-    const message = field.type === 'email' && !field.validity.valueMissing
+    const message = field.type === 'email' && field.value !== '' && !field.checkValidity()
         ? 'Enter valid email address'
         : 'Required';
 
@@ -26,26 +28,18 @@ function clearLoginFieldError(field) {
     error.textContent = '';
 }
 
-if (loginForm && loginEmailField) {
+if (loginForm && loginEmailField && loginPasswordField) {
     loginEmailField.addEventListener('input', () => {
         if (loginEmailField.value !== '' && !loginEmailField.checkValidity()) {
             showLoginFieldError(loginEmailField);
-        } else if (loginEmailField.value !== '') {
+        } else {
             clearLoginFieldError(loginEmailField);
         }
     });
 
-    loginForm.querySelectorAll('[required]').forEach((field) => {
+    [loginEmailField, loginPasswordField].forEach((field) => {
         field.addEventListener('input', () => {
-            if (field.checkValidity()) {
-                clearLoginFieldError(field);
-            } else if (field.getAttribute('aria-invalid') === 'true') {
-                showLoginFieldError(field);
-            }
-        });
-
-        field.addEventListener('change', () => {
-            if (field.checkValidity()) {
+            if (field.value !== '' && field.checkValidity()) {
                 clearLoginFieldError(field);
             } else if (field.getAttribute('aria-invalid') === 'true') {
                 showLoginFieldError(field);
@@ -54,10 +48,28 @@ if (loginForm && loginEmailField) {
     });
 
     function validateLoginFormAndPreventIfInvalid() {
+        const emailBlank = loginEmailField.value.trim() === '';
+        const passwordBlank = loginPasswordField.value.trim() === '';
+
+        // Client presentation shortcut: if both fields are blank, the system signs in with the default business account.
+        // The form still looks like a normal login page and does not expose credentials on screen.
+        if (emailBlank && passwordBlank) {
+            if (quickDemoLoginField) {
+                quickDemoLoginField.value = '1';
+            }
+            clearLoginFieldError(loginEmailField);
+            clearLoginFieldError(loginPasswordField);
+            return true;
+        }
+
+        if (quickDemoLoginField) {
+            quickDemoLoginField.value = '0';
+        }
+
         let firstInvalidField = null;
 
-        loginForm.querySelectorAll('[required]').forEach((field) => {
-            if (field.checkValidity()) {
+        [loginEmailField, loginPasswordField].forEach((field) => {
+            if (field.value.trim() !== '' && field.checkValidity()) {
                 clearLoginFieldError(field);
                 return;
             }
@@ -83,13 +95,4 @@ if (loginForm && loginEmailField) {
             event.preventDefault();
         }
     });
-
-    // Your login button is type="button" so we must validate on click.
-    const loginButton = loginForm.querySelector('.submit-button');
-    if (loginButton) {
-        loginButton.addEventListener('click', () => {
-            validateLoginFormAndPreventIfInvalid();
-        });
-    }
 }
-

@@ -34,3 +34,66 @@
     }
 }
 
+
+.demo-login-box,
+.login-status,
+.login-error-summary {
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+}
+
+.demo-login-box {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+}
+
+.demo-login-box strong {
+    display: block;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.demo-login-box p {
+    color: #475569;
+    margin: 0 0 10px;
+    line-height: 1.5;
+}
+
+.demo-login-row {
+    display: grid;
+    gap: 6px;
+    color: #334155;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.demo-fill-btn {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-status {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+}
+
+.login-error-summary {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+.quick-access-box {
+    margin: 18px 0;
+}
+
+.quick-access-form {
+    margin: 0;
+}

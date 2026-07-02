@@ -608,3 +608,25 @@ textarea {
 .form-actions button.back-btn {
     cursor: pointer;
 }
+
+/* Client demo polish: keep the quote page readable under the shared header. */
+.job-page {
+    margin: 32px auto;
+}
+
+.form-group .field-error {
+    display: none;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #dc2626;
+}
+
+.form-group.form-field--error input,
+.form-group.form-field--error select,
+.form-group.form-field--error textarea {
+    border-color: #dc2626;
+}
+
+.form-group.form-field--error .field-error {
+    display: block;
+}

@@ -24,7 +24,11 @@
             </div>
 
             <div class="navbar-actions">
-                <a href="{{ route('contact.create') }}" class="nav-btn light-btn">Contact</a>
+                @if(session('demo_user'))
+                    <a href="{{ route('dashboard') }}" class="nav-btn light-btn">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="nav-btn light-btn">Business Login</a>
+                @endif
                 <a href="{{ route('businesses.register') }}" class="nav-btn business-btn">List Your Business</a>
             </div>
 
@@ -148,7 +152,7 @@
             </div>
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/automative.jpg') }}" alt="Automative">
+                <img src="{{ asset('Images/categories/automative.jpg') }}" alt="Automotive">
                 <div class="category-content">
                     <h3>Automotive</h3>
                     <p>Connect with experts for vehicle repairs, servicing, and maintenance needs.</p>

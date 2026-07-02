@@ -1417,3 +1417,38 @@ button {
     border-radius: 8px;
     height: 48px;
 }
+
+/* Client demo validation summary for the business listing flow. */
+.form-error-summary {
+    margin: 0 0 20px;
+    padding: 16px 18px;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    background: #fef2f2;
+    color: #991b1b;
+    font-size: 13px;
+}
+
+.form-error-summary ul {
+    margin: 10px 0 0 18px;
+}
+
+.form-error-summary li {
+    margin-bottom: 5px;
+}
+
+.demo-registration-note {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    color: #475569;
+    padding: 13px 16px;
+    margin: 16px 0 20px;
+    font-size: 14px;
+}
+
+.demo-registration-note a {
+    color: #2563eb;
+    font-weight: 800;
+    text-decoration: none;
+}

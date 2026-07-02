@@ -13,7 +13,11 @@
         <a href="{{ route('home') }}" class="brand-link">NZ Businesses</a>
         <div class="page-nav-links">
             <a href="{{ route('businesses.index') }}">Browse</a>
-            <a href="{{ route('contact.create') }}">Contact</a>
+            @if(session('demo_user'))
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}">Business Login</a>
+            @endif
             <a href="{{ route('businesses.register') }}" class="primary-link">List Your Business</a>
         </div>
     </nav>
@@ -99,7 +103,7 @@
                         </div>
 
                         <div class="verified-badge">
-                            Verified
+                            {{ ! empty($business['is_session_listing']) ? 'New Listing' : 'Verified' }}
                         </div>
                     </div>
 
@@ -114,6 +118,10 @@
                     <p class="business-description">
                         {{ $business['description'] }}
                     </p>
+
+                    @if(! empty($business['is_session_listing']))
+                        <p class="session-listing-note">Recently added</p>
+                    @endif
 
                     @if(! empty($business['services']))
                         <div class="tag-row">

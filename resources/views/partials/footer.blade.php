@@ -33,15 +33,6 @@
                     <li><a href="{{ route('pages.show', 'pricing') }}">Pricing</a></li>
                 </ul>
             </div>
-
-            <div>
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="{{ route('home') }}">About</a></li>
-                    <li><a href="{{ route('contact.create') }}">Contact</a></li>
-                    <li><a href="{{ route('home') }}">Privacy Policy</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 
