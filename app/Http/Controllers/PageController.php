@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 class PageController extends Controller
 {
+    public function contributors()
+    {
+        return view('static.contributors', [
+            'contributors' => config('contributors'),
+        ]);
+    }
+
     public function show(string $page)
     {
         if ($page === 'contact') {

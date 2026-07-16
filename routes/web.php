@@ -26,4 +26,6 @@ Route::post('/quote', [QuoteController::class, 'store'])->name('quote.store');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+Route::get('/who-we-are', [PageController::class, 'contributors'])->name('contributors.index');
+
 Route::get('/pages/{page}', [PageController::class, 'show'])->name('pages.show');

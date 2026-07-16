@@ -22,7 +22,52 @@
     </nav>
 
     <main class="page-container narrow-container">
-        <a href="{{ url()->previous() }}" class="back-link">← Back</a>
+        <div class="profile-page-top">
+            <a href="{{ url()->previous() }}" class="back-link profile-back-link">← Back</a>
+
+            <section class="profile-search-shell" aria-label="Search businesses">
+                <div class="profile-search-shell__header">
+                    <span>Search businesses</span>
+                    <p>Find other service providers by keyword, location, industry, or category.</p>
+                </div>
+
+                <form action="{{ route('businesses.index') }}" method="GET" class="filter-box profile-search-form">
+                    <input
+                        type="text"
+                        name="service"
+                        value=""
+                    >
+
+                    <input
+                        type="text"
+                        name="location"
+                        value=""
+                    >
+
+                    <select name="industry">
+                        <option value="" selected>All Industries</option>
+                        @foreach(config('industries') as $industryName => $categories)
+                            <option value="{{ $industryName }}">
+                                {{ $industryName }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <select name="category">
+                        <option value="" selected>All Categories</option>
+                        @foreach(config('industries') as $industryName => $categories)
+                            @foreach($categories as $category)
+                                <option value="{{ $category }}">
+                                    {{ $category }}
+                                </option>
+                            @endforeach
+                        @endforeach
+                    </select>
+
+                    <button type="submit">Apply Filters</button>
+                </form>
+            </section>
+        </div>
 
         <section class="profile-card">
             @if(! empty($business['cover_url']))
