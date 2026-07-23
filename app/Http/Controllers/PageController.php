@@ -13,21 +13,15 @@ class PageController extends Controller
 
     public function show(string $page)
     {
+        if (in_array($page, ['about', 'privacy'], true)) {
+            return redirect()->route('home');
+        }
+
         if ($page === 'contact') {
             return redirect()->route('contact.create');
         }
 
         $pages = [
-            'about' => [
-                'title' => 'About',
-                'heading' => 'Connecting customers with trusted local businesses',
-                'body' => 'NZ Businesses helps customers search by service, suburb, category, and business profile. Customers can compare demo listings, view business details, and submit quote requests without needing to create an account.',
-            ],
-            'privacy' => [
-                'title' => 'Privacy Policy',
-                'heading' => 'Privacy and data handling',
-                'body' => 'This demo collects only the information entered into contact, quote, and business registration forms. Uploaded business verification files are handled as demo submission files and should be replaced by a production storage and admin review process before launch.',
-            ],
             'pricing' => [
                 'title' => 'Pricing',
                 'heading' => 'Simple business listing options',

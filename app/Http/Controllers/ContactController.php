@@ -22,18 +22,11 @@ class ContactController extends Controller
             'message' => ['required', 'string', 'max:1500'],
         ]);
 
-        try {
-            $contactMessage = ContactMessage::create($data);
-            $reference = 'CM-' . str_pad((string) $contactMessage->id, 5, '0', STR_PAD_LEFT);
-        } catch (\Throwable $exception) {
-            report($exception);
-            $contactMessage = (object) $data;
-            $reference = 'CM-DEMO-' . now()->format('YmdHis');
-        }
+        $contactMessage = ContactMessage::create($data);
 
         return view('static.submitted', [
             'title' => 'Contact message submitted',
-            'message' => 'Thank you, ' . $contactMessage->name . '. Your message has been submitted. Reference number: ' . $reference . '.',
+            'message' => 'Thank you, ' . $contactMessage->name . '. Your message has been submitted. Reference number: CM-' . str_pad((string) $contactMessage->id, 5, '0', STR_PAD_LEFT) . '.',
         ]);
     }
 }

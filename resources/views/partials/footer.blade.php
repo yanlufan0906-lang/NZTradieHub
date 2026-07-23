@@ -37,9 +37,10 @@
             <div>
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="{{ route('contributors.index') }}">Who We Are</a></li>
-                    <li><a href="{{ route('pages.show', 'about') }}">About the Platform</a></li>
-                    <li><a href="{{ route('contact.create') }}">Contact Us</a></li>
+                    <li><a href="{{ route('home') }}">About</a></li>
+                    <li><a href="{{ route('contributors.index') }}">Contributors</a></li>
+                    <li><a href="{{ route('contact.create') }}">Contact</a></li>
+                    <li><a href="{{ route('home') }}">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>

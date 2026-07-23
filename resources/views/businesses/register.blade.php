@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Your Business | NZ Businesses</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/business.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    <script src="{{ asset('js/business.js') }}" defer></script>
-</head>
-<body>
-    @include('partials.header')
+@extends('layouts.app', ['title' => 'Trady App', 'showFooter' => false])
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/business.js') }}" defer></script>
+@endpush
+
+@section('content')
     <main class="service-request-page">
         <div class="container">
             <section class="service-request">
@@ -31,7 +24,7 @@
                             </div>
                             <div class="step-list__content">
                                 <h2>Account Details</h2>
-                                <p>Owner contact</p>
+                                <p>Login + Contact</p>
                             </div>
                         </li>
 
@@ -91,7 +84,7 @@
                     <div class="form-heading">
                         <span class="form-heading__eyebrow">Step 1 of 6</span>
                         <h2>Account Details</h2>
-                        <p>Create your business account and primary contact details.</p>
+                        <p>Create your login credentials and primary contact information.</p>
                     </div>
 
                     <div class="step-progress">
@@ -104,24 +97,8 @@
                         <span class="step-progress__label">Step 1 of 6</span>
                     </div>
 
-                    <div class="demo-registration-note">
-                        Already have a business account? <a href="{{ route('login') }}">Business Login</a>
-                    </div>
-
-                    @if ($errors->any())
-                        <div class="form-error-summary" role="alert">
-                            <strong>Please fix the following:</strong>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form class="service-request-form" action="{{ route('businesses.register.store') }}" method="post" enctype="multipart/form-data" novalidate>
-                        @csrf
-                        <div class="form-step form-step--active" data-step="1" data-title="Account Details" data-description="Create your business account and primary contact details.">
+                    <form class="service-request-form" action="#" method="post" novalidate>
+                        <div class="form-step form-step--active" data-step="1" data-title="Account Details" data-description="Create your login credentials and primary contact information.">
                             <div class="form-row">
                                 <div class="form-field">
                                     <label>
@@ -698,7 +675,4 @@
             </section>
         </div>
     </main>
-
-    @include('partials.footer')
-</body>
-</html>
+@endsection

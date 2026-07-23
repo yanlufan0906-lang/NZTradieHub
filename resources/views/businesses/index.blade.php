@@ -1,92 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Listings</title>
-    <link rel="stylesheet" href="{{ asset('css/businesses.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-</head>
-<body>
+@extends('layouts.app', ['title' => 'Business Listings'])
 
-    <nav class="page-navbar">
-        <a href="{{ route('home') }}" class="brand-link">NZ Businesses</a>
-        <div class="page-nav-links">
-            <a href="{{ route('businesses.index') }}">Browse</a>
-            @if(session('demo_user'))
-                <a href="{{ route('dashboard') }}">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}">Business Login</a>
-            @endif
-            <a href="{{ route('businesses.register') }}" class="primary-link">List Your Business</a>
-        </div>
-    </nav>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/directory.css') }}">
+@endpush
 
+@section('content')
     <main class="page-container">
-        <div class="page-heading">
-            <span>Business Directory</span>
-            <h1>Search businesses</h1>
-            <p>
-                Showing results for
-                <strong>{{ $service ?: 'all services' }}</strong>
-                @if($location)
-                    in <strong>{{ $location }}</strong>
-                @endif
-            </p>
-        </div>
-
-        <form action="{{ route('businesses.index') }}" method="GET" class="filter-box">
-            <input
-                type="text"
-                name="service"
-                placeholder="Service, keyword, or business name"
-                value="{{ $service }}"
-            >
-
-            <input
-                type="text"
-                name="location"
-                placeholder="Location or suburb"
-                value="{{ $location }}"
-            >
-
-            <select name="industry">
-                <option value="">All Industries</option>
-
-                @foreach($industries as $industryName => $categories)
-                    <option value="{{ $industryName }}" {{ $selectedIndustry == $industryName ? 'selected' : '' }}>
-                        {{ $industryName }}
-                    </option>
-                @endforeach
-            </select>
-
-            <select name="category">
-                <option value="">All Categories</option>
-
-                @foreach($industries as $industryName => $categories)
-                    @foreach($categories as $category)
-                        <option value="{{ $category }}" {{ $selectedCategory == $category ? 'selected' : '' }}>
-                            {{ $category }}
-                        </option>
-                    @endforeach
-                @endforeach
-            </select>
-
-            <button type="submit">Apply Filters</button>
-        </form>
-
-        <div class="quick-filter-row">
-            <a href="{{ route('businesses.index', ['category' => 'Plumbing', 'location' => 'Auckland']) }}">Plumbers in Auckland</a>
-            <a href="{{ route('businesses.index', ['category' => 'Electrical']) }}">Electricians</a>
-            <a href="{{ route('businesses.index', ['category' => 'Renovations']) }}">Builders / Renovations</a>
-            <a href="{{ route('businesses.index', ['category' => 'Home Cleaning']) }}">Cleaners</a>
-            <a href="{{ route('businesses.index', ['service' => 'roof']) }}">Roofing</a>
-        </div>
-
-        <div class="result-summary">
-            <span>{{ $businesses->count() }} business{{ $businesses->count() === 1 ? '' : 'es' }} found</span>
-            <a href="{{ route('businesses.index') }}">Clear filters</a>
-        </div>
+        <x-business-directory-search
+            :industries="$industries"
+            :service="$service"
+            :location="$location"
+            :selected-industry="$selectedIndustry"
+            :selected-category="$selectedCategory"
+            :business-count="$businesses->count()"
+        />
 
         <div class="business-grid">
             @forelse($businesses as $business)
@@ -103,7 +30,7 @@
                         </div>
 
                         <div class="verified-badge">
-                            {{ ! empty($business['is_session_listing']) ? 'New Listing' : 'Verified' }}
+                            Verified
                         </div>
                     </div>
 
@@ -118,10 +45,6 @@
                     <p class="business-description">
                         {{ $business['description'] }}
                     </p>
-
-                    @if(! empty($business['is_session_listing']))
-                        <p class="session-listing-note">Recently added</p>
-                    @endif
 
                     @if(! empty($business['services']))
                         <div class="tag-row">
@@ -171,7 +94,4 @@
             @endforelse
         </div>
     </main>
-
-    @include('partials.footer')
-</body>
-</html>
+@endsection
