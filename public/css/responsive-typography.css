@@ -1,0 +1,165 @@
+/* Consistent type scale for tablet and mobile layouts. */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: clamp(36px, 5vw, 40px);
+    }
+
+    .section-header h2 {
+        font-size: 32px;
+    }
+
+    .how-card h3 {
+        font-size: 26px;
+    }
+
+    .page-heading h1 {
+        font-size: 36px;
+        line-height: 1.15;
+    }
+
+    .profile-card h1 {
+        font-size: 34px;
+        line-height: 1.18;
+    }
+
+    .business-top h2,
+    .contributor-card h2 {
+        font-size: 21px;
+    }
+
+    .profile-description,
+    .contributors-hero p {
+        font-size: 16px;
+    }
+
+    .contributors-hero h1 {
+        font-size: 38px;
+        line-height: 1.12;
+    }
+
+    .login-panel__intro h1 {
+        font-size: 34px;
+    }
+
+    .coming-soon-copy h1 {
+        font-size: clamp(40px, 5.8vw, 52px);
+        letter-spacing: -2px;
+    }
+
+    .form-heading h1 {
+        font-size: 26px;
+        line-height: 1.2;
+    }
+
+    .service-request-page .form-heading h2 {
+        font-size: 24px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .dashboard-card h2,
+    .dashboard-section-header h2 {
+        font-size: 22px;
+        line-height: 1.25;
+    }
+
+    .form-page :is(.contact-form, .job-form) :is(.form-field, .form-group) textarea::placeholder,
+    .service-request-form .form-field textarea::placeholder {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-content h1 {
+        font-size: clamp(26px, 8vw, 30px);
+        line-height: 1.12;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .section-header h2 {
+        font-size: clamp(24px, 7vw, 28px);
+        line-height: 1.2;
+    }
+
+    .how-card h3 {
+        font-size: 22px;
+    }
+
+    .page-heading h1,
+    .profile-card h1 {
+        font-size: clamp(26px, 7.5vw, 30px);
+        line-height: 1.2;
+    }
+
+    .business-top h2,
+    .contributor-card h2 {
+        font-size: 20px;
+    }
+
+    .profile-description,
+    .contributors-hero p {
+        font-size: 15px;
+    }
+
+    .contributors-hero h1 {
+        font-size: clamp(28px, 8.5vw, 32px);
+        line-height: 1.15;
+    }
+
+    .login-panel__intro h1 {
+        font-size: 28px;
+    }
+
+    .coming-soon-copy h1 {
+        font-size: clamp(32px, 10vw, 40px);
+        line-height: 1.08;
+        letter-spacing: -1px;
+    }
+
+    .coming-soon-copy > p {
+        font-size: 15px;
+    }
+
+    .coming-soon-visual__card strong {
+        font-size: 26px;
+    }
+
+    .form-heading h1 {
+        font-size: 24px;
+    }
+
+    .contact-page .form-heading h1,
+    .service-request-page .form-heading h2 {
+        font-size: 22px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 28px;
+    }
+
+    .dashboard-card h2,
+    .dashboard-section-header h2 {
+        font-size: 20px;
+    }
+
+    .footer-brand h3 {
+        font-size: 18px;
+    }
+
+    .form-page :is(.contact-form, .job-form) :is(.form-field, .form-group) :is(input, select, textarea),
+    .service-request-form .form-field :is(input, select, textarea) {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .form-page :is(.contact-form, .job-form) :is(.form-field, .form-group) textarea::placeholder,
+    .service-request-form .form-field textarea::placeholder {
+        font-size: 16px;
+    }
+}

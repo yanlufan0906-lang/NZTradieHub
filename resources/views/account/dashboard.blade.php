@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/businesses.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive-typography.css') }}">
 </head>
 <body>
     @include('partials.header')
