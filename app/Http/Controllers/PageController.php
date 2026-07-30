@@ -14,7 +14,7 @@ class PageController extends Controller
     public function show(string $page)
     {
         if ($page === 'privacy') {
-            return redirect()->route('home');
+            return view('static.privacy');
         }
 
         if ($page === 'contact') {

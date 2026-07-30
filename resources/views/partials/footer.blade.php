@@ -40,7 +40,7 @@
                     <li><a href="{{ route('pages.show', 'about') }}">About</a></li>
                     <li><a href="{{ route('contributors.index') }}">Contributors</a></li>
                     <li><a href="{{ route('contact.create') }}">Contact</a></li>
-                    <li><a href="{{ route('home') }}">Privacy Policy</a></li>
+                    <li><a href="{{ route('pages.show', 'privacy') }}">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
