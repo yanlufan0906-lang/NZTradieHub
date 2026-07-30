@@ -158,8 +158,34 @@
         line-height: 1.4;
     }
 
+    .form-page :is(.contact-form, .job-form) :is(.form-field, .form-group) input::placeholder,
     .form-page :is(.contact-form, .job-form) :is(.form-field, .form-group) textarea::placeholder,
-    .service-request-form .form-field textarea::placeholder {
+    .service-request-form .form-field input::placeholder,
+    .service-request-form .form-field textarea::placeholder,
+    .login-form__field input::placeholder,
+    .hero-search-box input::placeholder,
+    .filter-box input::placeholder,
+    .profile-search-form input::placeholder {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .login-form__field input,
+    .hero-search-box input,
+    .filter-box :is(input, select),
+    .profile-search-form :is(input, select) {
+        font-size: 16px;
+    }
+
+    select option[value=""] {
+        font-size: 14px;
+    }
+
+    select:has(option[value=""]:checked) {
+        font-size: 14px;
+    }
+
+    select:focus {
         font-size: 16px;
     }
 }
