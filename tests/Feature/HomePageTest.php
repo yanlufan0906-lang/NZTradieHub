@@ -17,6 +17,7 @@ class HomePageTest extends TestCase
             ->assertSee('Find Trusted Businesses')
             ->assertSee('fetchpriority="high"', false)
             ->assertSee('images/categories/builder.webp', false)
+            ->assertSee('<body class="has-fixed-header">', false)
             ->assertSee('aria-controls="primaryNavigationActions"', false)
             ->assertSee('js/navigation.js', false)
             ->assertSee(route('businesses.index'), false)

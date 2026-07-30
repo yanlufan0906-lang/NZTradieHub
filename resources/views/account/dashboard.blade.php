@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <title>Business Dashboard | NZ Businesses</title>
     <link rel="stylesheet" href="{{ asset('css/businesses.css') }}">
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive-typography.css') }}">
 </head>
-<body>
+<body class="has-fixed-header">
     @include('partials.header')
 
     <main class="page-container dashboard-container">
@@ -101,5 +102,6 @@
     </main>
 
     @include('partials.footer')
+    <script src="{{ asset('js/navigation.js') }}"></script>
 </body>
 </html>

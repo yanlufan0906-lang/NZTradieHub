@@ -13,7 +13,7 @@
     @stack('styles')
     <link rel="stylesheet" href="{{ asset('css/responsive-typography.css') }}">
 </head>
-<body class="{{ $bodyClass ?? '' }}">
+<body class="{{ trim(($bodyClass ?? '').' '.(($showHeader ?? true) ? 'has-fixed-header' : '')) }}">
     @if($showHeader ?? true)
         @include('partials.header')
     @endif

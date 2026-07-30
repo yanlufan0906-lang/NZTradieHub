@@ -450,7 +450,7 @@
     }
 
     .about-hero {
-        padding: 56px 0 78px;
+        padding: 56px 15px;
     }
 
     .about-hero__grid,
@@ -484,7 +484,7 @@
     .about-mission,
     .about-audiences,
     .about-values {
-        padding: 76px 0;
+        padding: 56px 0;
     }
 
     .about-mission__grid {
