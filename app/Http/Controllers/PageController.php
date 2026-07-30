@@ -13,12 +13,16 @@ class PageController extends Controller
 
     public function show(string $page)
     {
-        if (in_array($page, ['about', 'privacy'], true)) {
+        if ($page === 'privacy') {
             return redirect()->route('home');
         }
 
         if ($page === 'contact') {
             return redirect()->route('contact.create');
+        }
+
+        if ($page === 'about') {
+            return view('static.about');
         }
 
         $pages = [
