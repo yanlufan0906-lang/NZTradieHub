@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Trady App', 'showFooter' => false])
+@extends('layouts.app', ['title' => 'Register | New Zealand Businesses', 'showFooter' => false])
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/registration.css') }}">
