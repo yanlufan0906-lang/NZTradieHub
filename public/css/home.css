@@ -556,11 +556,6 @@
         width: min(760px, 100%);
     }
 
-    .trust-container,
-    .category-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .how-grid {
         grid-template-columns: 1fr;
     }
@@ -589,6 +584,13 @@
     .category-grid,
     .how-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+    .trust-container,
+    .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 

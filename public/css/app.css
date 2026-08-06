@@ -277,9 +277,6 @@ textarea {
         grid-template-columns: 1fr;
     }
 
-    .footer-links {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
 }
 
 @media (max-width: 980px) {
@@ -291,6 +288,12 @@ textarea {
     .footer-container,
     .footer-links {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+    .footer-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
