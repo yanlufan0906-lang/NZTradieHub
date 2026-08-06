@@ -1,6 +1,6 @@
 @extends('layouts.app', [
     'title' => 'Login | New Zealand Businesses',
-    'showFooter' => false,
+    'showFooter' => true,
 ])
 
 @push('styles')
