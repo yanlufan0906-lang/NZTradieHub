@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-    'title' => 'Login | New Zealand Businesses,
+    'title' => 'Login | New Zealand Businesses',
     'showFooter' => false,
 ])
 
