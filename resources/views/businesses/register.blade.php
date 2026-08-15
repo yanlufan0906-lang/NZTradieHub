@@ -162,7 +162,11 @@
                                 <div class="form-field">
                                     <label class="checkbox">
                                         <input type="checkbox" name="accountTermsConditions" required>
-                                        <span>I agree to the Terms &amp; Conditions and Privacy Policy <span class="required">*</span></span>
+                                        <span>
+                                            I agree to the Terms &amp; Conditions and
+                                            <a href="{{ route('pages.show', 'privacy') }}" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                                            <span class="required">*</span>
+                                        </span>
                                     </label>
                                     <span class="field-error"></span>
                                 </div>
@@ -638,7 +642,11 @@
                                     <label class="verification-check">
                                         <input type="checkbox" name="termsConditions" required>
                                         <span class="verification-check__box"></span>
-                                        <span>I agree to the Terms &amp; Conditions and Privacy Policy <span class="required">*</span></span>
+                                        <span>
+                                            I agree to the Terms &amp; Conditions and
+                                            <a href="{{ route('pages.show', 'privacy') }}" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                                            <span class="required">*</span>
+                                        </span>
                                     </label>
                                     <span class="field-error"></span>
                                 </div>

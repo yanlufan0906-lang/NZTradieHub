@@ -1057,6 +1057,27 @@ button {
     color: #333333;
 }
 
+.service-request-form .checkbox a,
+.service-request-form .verification-check a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.service-request-form .checkbox a:hover,
+.service-request-form .verification-check a:hover {
+    color: #1d4ed8;
+}
+
+.service-request-form .checkbox a:focus-visible,
+.service-request-form .verification-check a:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 2px;
+}
+
 .form-row .submit-button {
     display: flex;
     justify-content: center;

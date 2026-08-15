@@ -20,4 +20,13 @@ class PrivacyPageTest extends TestCase
             ->assertSee('AI-assisted job descriptions')
             ->assertSee(route('contact.create'), false);
     }
+
+    public function test_business_registration_privacy_policy_references_are_linked(): void
+    {
+        $response = $this->get(route('businesses.register'));
+        $privacyLink = 'href="'.route('pages.show', 'privacy').'" target="_blank" rel="noopener noreferrer"';
+
+        $response->assertOk();
+        $this->assertSame(2, substr_count($response->getContent(), $privacyLink));
+    }
 }
