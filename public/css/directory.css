@@ -252,6 +252,390 @@
 .get-quote-btn:hover {
     background: #1f2937;
 }
+
+/* ===== Directory business card refresh ===== */
+.business-grid {
+    align-items: stretch;
+}
+
+.business-directory-card {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    border-color: #dce4ef;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 14px 38px rgba(15, 23, 42, 0.075);
+    flex-direction: column;
+    transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.business-directory-card::before {
+    display: block;
+    width: 100%;
+    height: 5px;
+    flex: 0 0 5px;
+    background: linear-gradient(90deg, #facc15 0%, #facc15 32%, #2563eb 32%, #2563eb 100%);
+    content: '';
+}
+
+.business-directory-card:hover {
+    transform: translateY(-5px);
+    border-color: #bfdbfe;
+    box-shadow: 0 24px 52px rgba(15, 23, 42, 0.13);
+}
+
+.business-card-header {
+    display: flex;
+    gap: 16px;
+    padding: 24px 24px 0;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.business-card-identity {
+    display: flex;
+    gap: 14px;
+    min-width: 0;
+    align-items: center;
+}
+
+.business-card-avatar {
+    display: grid;
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border: 1px solid #f5c70a;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fde047, #facc15);
+    color: #172033;
+    box-shadow: 0 10px 22px rgba(202, 138, 4, 0.18);
+    place-items: center;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.business-card-heading {
+    min-width: 0;
+}
+
+.business-directory-card .business-industry {
+    margin: 0 0 6px;
+    padding: 0;
+    background: transparent;
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.business-directory-card .business-card-heading h2 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 21px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.business-directory-card .verified-badge {
+    display: inline-flex;
+    gap: 5px;
+    flex: 0 0 auto;
+    padding: 7px 10px;
+    background: #ecfdf5;
+    color: #047857;
+    align-items: center;
+    font-size: 10px;
+}
+
+.business-directory-card .verified-badge svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.business-directory-card .business-card-meta {
+    gap: 8px;
+    margin: 18px 24px 0;
+}
+
+.business-directory-card .business-card-meta span {
+    display: inline-flex;
+    gap: 6px;
+    min-height: 30px;
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    background: #f8fafc;
+    color: #475569;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.business-directory-card .business-card-meta svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.business-directory-card .business-card-meta .business-card-rating {
+    border-color: #fde68a;
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.business-directory-card .business-card-rating svg {
+    fill: #facc15;
+    stroke: #eab308;
+}
+
+.business-directory-card .business-description {
+    margin: 17px 24px 0;
+    color: #526078;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.business-card-services {
+    margin: 20px 24px 0;
+}
+
+.business-card-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.business-directory-card .business-card-tags {
+    gap: 7px;
+    margin: 0;
+}
+
+.business-directory-card .business-card-tags span {
+    padding: 7px 9px;
+    border: 1px solid #dbeafe;
+    background: #eff6ff;
+    color: #1e40af;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.business-card-coverage {
+    display: flex;
+    gap: 11px;
+    margin: 20px 24px 0;
+    padding: 13px 14px;
+    border: 1px solid #d1fae5;
+    border-radius: 14px;
+    background: #f0fdf4;
+    align-items: flex-start;
+}
+
+.business-card-coverage__icon,
+.business-card-contact__icon {
+    display: grid;
+    flex: 0 0 auto;
+    border-radius: 9px;
+    place-items: center;
+}
+
+.business-card-coverage__icon {
+    width: 31px;
+    height: 31px;
+    background: #d1fae5;
+    color: #047857;
+}
+
+.business-card-coverage svg,
+.business-card-contact svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.business-card-coverage strong,
+.business-card-coverage p {
+    display: block;
+}
+
+.business-card-coverage strong {
+    color: #047857;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.business-card-coverage p {
+    margin: 3px 0 0;
+    color: #3f5f53;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.business-directory-card .business-card-contact {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin: 20px 24px 0;
+    padding: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.business-directory-card .business-card-contact > div {
+    display: flex;
+    gap: 10px;
+    min-width: 0;
+    padding: 13px;
+    color: #334155;
+    align-items: center;
+}
+
+.business-directory-card .business-card-contact > div + div {
+    border-left: 1px solid #e2e8f0;
+}
+
+.business-card-contact__icon {
+    width: 31px;
+    height: 31px;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.business-directory-card .business-card-contact > div > span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.business-directory-card .business-card-contact strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #64748b;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+}
+
+.business-directory-card .business-card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: auto;
+    padding: 22px 24px 24px;
+}
+
+.business-directory-card .business-card-actions a {
+    display: inline-flex;
+    gap: 6px;
+    min-height: 46px;
+    padding: 11px 13px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.business-directory-card .business-card-actions svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.business-directory-card .business-card-actions .view-profile-btn {
+    border-color: #cbd5e1;
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.business-directory-card .business-card-actions .view-profile-btn:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.business-directory-card .business-card-actions .get-quote-btn {
+    background: #172033;
+    color: #ffffff;
+}
+
+.business-directory-card .business-card-actions .get-quote-btn:hover {
+    background: #1e3a8a;
+}
+
+@media (max-width: 560px) {
+    .business-card-header {
+        padding: 21px 20px 0;
+    }
+
+    .business-card-avatar {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+        border-radius: 14px;
+        font-size: 21px;
+    }
+
+    .business-directory-card .verified-badge {
+        padding: 6px 8px;
+    }
+
+    .business-directory-card .business-card-meta,
+    .business-directory-card .business-description,
+    .business-card-services,
+    .business-card-coverage,
+    .business-directory-card .business-card-contact {
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
+    .business-directory-card .business-card-contact,
+    .business-directory-card .business-card-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .business-directory-card .business-card-contact > div + div {
+        border-top: 1px solid #e2e8f0;
+        border-left: 0;
+    }
+
+    .business-directory-card .business-card-actions {
+        padding: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .business-directory-card {
+        transition: none;
+    }
+}
 /* ===== Page shell ===== */
 body {
     color: #111827;

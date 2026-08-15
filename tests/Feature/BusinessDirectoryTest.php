@@ -23,7 +23,9 @@ class BusinessDirectoryTest extends TestCase
                 return $businesses->count() === 1
                     && $businesses->first()['name'] === 'Wellington Power Pros';
             })
-            ->assertSee('Wellington Power Pros');
+            ->assertSee('Wellington Power Pros')
+            ->assertSee('data-business-card', false)
+            ->assertSee('Popular services');
     }
 
     public function test_directory_displays_an_empty_state_when_no_business_matches(): void
