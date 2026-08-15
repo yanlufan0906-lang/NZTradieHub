@@ -56,6 +56,9 @@ class BusinessDirectoryTest extends TestCase
             ->assertSee($business['name'])
             ->assertSee('Search businesses')
             ->assertSee('Apply Filters')
+            ->assertSee('data-business-profile', false)
+            ->assertSee('About this business')
+            ->assertSee('Business rating')
             ->assertSee('Contact me')
             ->assertDontSee('Email Business')
             ->assertSee(route('businesses.contact', Str::slug($business['name'])), false);
@@ -72,7 +75,7 @@ class BusinessDirectoryTest extends TestCase
         $this->get(route('businesses.contact', $slug))
             ->assertOk()
             ->assertViewIs('businesses.contact')
-            ->assertSee('Contact ' . $business['name'])
+            ->assertSee('Contact '.$business['name'])
             ->assertSee('data-business-contact-form', false)
             ->assertSee('Send Message')
             ->assertDontSee('method="POST"', false)

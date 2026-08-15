@@ -22,6 +22,7 @@
                     <li><a href="{{ route('businesses.index') }}">Get Quotes</a></li>
                     <li><a href="{{ route('home') }}#how-it-works">How it Works</a></li>
                     <li><a href="{{ route('businesses.index') }}">Browse Businesses</a></li>
+                    <li><a href="{{ route('pages.show', 'customer-faq') }}">Customer FAQ</a></li>
                 </ul>
             </div>
 
@@ -31,6 +32,7 @@
                     <li><a href="{{ route('businesses.register') }}">List Your Business</a></li>
                     <li><a href="{{ route('pages.show', 'receive-leads') }}">Receive Leads</a></li>
                     <li><a href="{{ route('pages.show', 'pricing') }}">Pricing</a></li>
+                    <li><a href="{{ route('pages.show', 'business-faq') }}">Business FAQ</a></li>
                 </ul>
             </div>
 

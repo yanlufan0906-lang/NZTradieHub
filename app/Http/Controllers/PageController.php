@@ -25,6 +25,14 @@ class PageController extends Controller
             return view('static.about');
         }
 
+        if ($page === 'customer-faq') {
+            return view('static.customer-faq');
+        }
+
+        if ($page === 'business-faq') {
+            return view('static.business-faq');
+        }
+
         $pages = [
             'pricing' => [
                 'title' => 'Pricing',
