@@ -55,6 +55,8 @@ class BusinessDirectoryTest extends TestCase
             })
             ->assertSee('Business directory pages')
             ->assertSee('Go to page 2')
+            ->assertSee('Go to page 5')
+            ->assertDontSee('Go to page 6')
             ->assertSee(config('demo-businesses.0.name'))
             ->assertDontSee(config('demo-businesses.6.name'));
 
@@ -62,6 +64,29 @@ class BusinessDirectoryTest extends TestCase
             ->assertOk()
             ->assertSee(config('demo-businesses.6.name'))
             ->assertDontSee(config('demo-businesses.0.name'));
+    }
+
+    public function test_directory_pagination_uses_a_five_page_sliding_window(): void
+    {
+        $this->get(route('businesses.index', ['page' => 6]))
+            ->assertOk()
+            ->assertSee('Go to page 4')
+            ->assertSee('Go to page 5')
+            ->assertSee('Current page, page 6')
+            ->assertSee('Go to page 7')
+            ->assertSee('Go to page 8')
+            ->assertDontSee('Go to page 3')
+            ->assertDontSee('Go to page 9')
+            ->assertSee('rel="prev"', false)
+            ->assertSee('rel="next"', false);
+
+        $lastPage = (int) ceil(count(config('demo-businesses')) / 6);
+
+        $this->get(route('businesses.index', ['page' => $lastPage]))
+            ->assertOk()
+            ->assertSee('Go to page '.($lastPage - 4))
+            ->assertSee('Current page, page '.$lastPage)
+            ->assertDontSee('Go to page '.($lastPage - 5));
     }
 
     public function test_directory_pagination_preserves_active_filters(): void

@@ -1,4 +1,12 @@
 @if ($paginator->hasPages())
+    @php
+        $visiblePageCount = 5;
+        $halfWindow = intdiv($visiblePageCount, 2);
+        $firstVisiblePage = max(1, $paginator->currentPage() - $halfWindow);
+        $lastVisiblePage = min($paginator->lastPage(), $firstVisiblePage + $visiblePageCount - 1);
+        $firstVisiblePage = max(1, $lastVisiblePage - $visiblePageCount + 1);
+    @endphp
+
     <nav class="directory-pagination" aria-label="Business directory pages">
         <p class="directory-pagination__summary">
             Showing <strong>{{ $paginator->firstItem() }}–{{ $paginator->lastItem() }}</strong>
@@ -23,25 +31,17 @@
             @endif
 
             <div class="directory-pagination__pages" aria-label="Page numbers">
-                @foreach ($elements as $element)
-                    @if (is_string($element))
-                        <span class="directory-pagination__ellipsis" aria-hidden="true">{{ $element }}</span>
+                @for ($page = $firstVisiblePage; $page <= $lastVisiblePage; $page++)
+                    @if ($page === $paginator->currentPage())
+                        <span class="directory-pagination__page directory-pagination__page--active" aria-current="page" aria-label="Current page, page {{ $page }}">
+                            {{ $page }}
+                        </span>
+                    @else
+                        <a class="directory-pagination__page" href="{{ $paginator->url($page) }}" aria-label="Go to page {{ $page }}">
+                            {{ $page }}
+                        </a>
                     @endif
-
-                    @if (is_array($element))
-                        @foreach ($element as $page => $url)
-                            @if ($page == $paginator->currentPage())
-                                <span class="directory-pagination__page directory-pagination__page--active" aria-current="page" aria-label="Current page, page {{ $page }}">
-                                    {{ $page }}
-                                </span>
-                            @else
-                                <a class="directory-pagination__page" href="{{ $url }}" aria-label="Go to page {{ $page }}">
-                                    {{ $page }}
-                                </a>
-                            @endif
-                        @endforeach
-                    @endif
-                @endforeach
+                @endfor
             </div>
 
             @if ($paginator->hasMorePages())
