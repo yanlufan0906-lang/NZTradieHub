@@ -17,6 +17,10 @@ class PageController extends Controller
             return view('static.privacy');
         }
 
+        if ($page === 'terms') {
+            return view('static.terms');
+        }
+
         if ($page === 'contact') {
             return redirect()->route('contact.create');
         }
