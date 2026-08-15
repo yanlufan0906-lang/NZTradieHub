@@ -226,3 +226,7 @@
         </section>
     </main>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/faq.js') }}" defer></script>
+@endpush

@@ -15,6 +15,7 @@ class FaqPageTest extends TestCase
             ->assertViewIs('static.customer-faq')
             ->assertSee('Customer frequently asked questions')
             ->assertSee('How do I request a quote?')
+            ->assertSee(asset('js/faq.js'), false)
             ->assertSee(route('pages.show', 'customer-faq'), false);
     }
 
@@ -27,6 +28,7 @@ class FaqPageTest extends TestCase
             ->assertViewIs('static.business-faq')
             ->assertSee('Business frequently asked questions')
             ->assertSee('How do I list my business?')
+            ->assertSee(asset('js/faq.js'), false)
             ->assertSee(route('pages.show', 'business-faq'), false);
     }
 }
