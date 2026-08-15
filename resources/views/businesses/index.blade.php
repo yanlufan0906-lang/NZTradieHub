@@ -12,7 +12,7 @@
             :location="$location"
             :selected-industry="$selectedIndustry"
             :selected-category="$selectedCategory"
-            :business-count="$businesses->count()"
+            :business-count="$businesses->total()"
         />
 
         <div class="business-grid">
@@ -149,5 +149,9 @@
                 </div>
             @endforelse
         </div>
+
+        @if($businesses->hasPages())
+            {{ $businesses->links('components.directory-pagination') }}
+        @endif
     </main>
 @endsection

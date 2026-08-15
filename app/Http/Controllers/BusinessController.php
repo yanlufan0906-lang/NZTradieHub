@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class BusinessController extends Controller
@@ -51,8 +52,22 @@ class BusinessController extends Controller
             });
         }
 
+        $businesses = $businesses->values();
+        $perPage = 6;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $businesses = new LengthAwarePaginator(
+            $businesses->forPage($currentPage, $perPage)->values(),
+            $businesses->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => $request->url(),
+                'query' => $request->except('page'),
+            ],
+        );
+
         return view('businesses.index', [
-            'businesses' => $businesses->values(),
+            'businesses' => $businesses,
             'industries' => $industries,
             'service' => $service,
             'location' => $location,

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -19,9 +19,9 @@ class BusinessDirectoryTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertViewHas('businesses', function (Collection $businesses): bool {
-                return $businesses->count() === 1
-                    && $businesses->first()['name'] === 'Wellington Power Pros';
+            ->assertViewHas('businesses', function (LengthAwarePaginator $businesses): bool {
+                return $businesses->total() === 1
+                    && $businesses->getCollection()->first()['name'] === 'Wellington Power Pros';
             })
             ->assertSee('Wellington Power Pros')
             ->assertSee('data-business-card', false)
@@ -36,8 +36,49 @@ class BusinessDirectoryTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertViewHas('businesses', fn (Collection $businesses): bool => $businesses->isEmpty())
+            ->assertViewHas('businesses', fn (LengthAwarePaginator $businesses): bool => $businesses->getCollection()->isEmpty())
             ->assertSee('No businesses found');
+    }
+
+    public function test_directory_paginates_six_businesses_at_a_time(): void
+    {
+        $firstPage = $this->get(route('businesses.index'));
+
+        $firstPage
+            ->assertOk()
+            ->assertViewHas('businesses', function (LengthAwarePaginator $businesses): bool {
+                return $businesses->perPage() === 6
+                    && $businesses->currentPage() === 1
+                    && $businesses->count() === 6
+                    && $businesses->total() === count(config('demo-businesses'))
+                    && $businesses->lastPage() === 3;
+            })
+            ->assertSee('Business directory pages')
+            ->assertSee('Go to page 2')
+            ->assertSee(config('demo-businesses.0.name'))
+            ->assertDontSee(config('demo-businesses.6.name'));
+
+        $this->get(route('businesses.index', ['page' => 2]))
+            ->assertOk()
+            ->assertSee(config('demo-businesses.6.name'))
+            ->assertDontSee(config('demo-businesses.0.name'));
+    }
+
+    public function test_directory_pagination_preserves_active_filters(): void
+    {
+        $response = $this->get(route('businesses.index', [
+            'industry' => 'Construction & Trades',
+        ]));
+
+        $response
+            ->assertOk()
+            ->assertViewHas('businesses', function (LengthAwarePaginator $businesses): bool {
+                parse_str((string) parse_url($businesses->url(2), PHP_URL_QUERY), $query);
+
+                return $businesses->lastPage() === 2
+                    && ($query['industry'] ?? null) === 'Construction & Trades'
+                    && (int) ($query['page'] ?? 0) === 2;
+            });
     }
 
     public function test_directory_heading_displays_the_selected_category(): void
