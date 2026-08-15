@@ -51,7 +51,7 @@ class BusinessDirectoryTest extends TestCase
                     && $businesses->currentPage() === 1
                     && $businesses->count() === 6
                     && $businesses->total() === count(config('demo-businesses'))
-                    && $businesses->lastPage() === 3;
+                    && $businesses->lastPage() === (int) ceil(count(config('demo-businesses')) / 6);
             })
             ->assertSee('Business directory pages')
             ->assertSee('Go to page 2')
@@ -75,10 +75,38 @@ class BusinessDirectoryTest extends TestCase
             ->assertViewHas('businesses', function (LengthAwarePaginator $businesses): bool {
                 parse_str((string) parse_url($businesses->url(2), PHP_URL_QUERY), $query);
 
-                return $businesses->lastPage() === 2
+                $industryTotal = collect(config('demo-businesses'))
+                    ->where('industry', 'Construction & Trades')
+                    ->count();
+
+                return $businesses->total() === $industryTotal
+                    && $businesses->lastPage() === (int) ceil($industryTotal / 6)
                     && ($query['industry'] ?? null) === 'Construction & Trades'
                     && (int) ($query['page'] ?? 0) === 2;
             });
+    }
+
+    public function test_demo_businesses_cover_every_configured_service_category(): void
+    {
+        $configuredCategories = collect(config('industries'))
+            ->flatten()
+            ->sort()
+            ->values();
+
+        $businesses = collect(config('demo-businesses'));
+        $representedCategories = $businesses
+            ->pluck('category')
+            ->unique()
+            ->sort()
+            ->values();
+
+        $this->assertEquals($configuredCategories, $representedCategories);
+        $this->assertCount($businesses->count(), $businesses->pluck('name')->unique());
+        $this->assertCount($businesses->count(), $businesses->map(fn (array $business): string => Str::slug($business['name']))->unique());
+
+        foreach ($businesses as $business) {
+            $this->assertContains($business['category'], config('industries.'.$business['industry']));
+        }
     }
 
     public function test_directory_heading_displays_the_selected_category(): void
