@@ -57,6 +57,9 @@ class BusinessDirectoryTest extends TestCase
             ->assertSee('Go to page 2')
             ->assertSee('Go to page 5')
             ->assertDontSee('Go to page 6')
+            ->assertSee('data-page-jump', false)
+            ->assertSee('name="page"', false)
+            ->assertSee('max="'.(int) ceil(count(config('demo-businesses')) / 6).'"', false)
             ->assertSee(config('demo-businesses.0.name'))
             ->assertDontSee(config('demo-businesses.6.name'));
 
@@ -97,6 +100,8 @@ class BusinessDirectoryTest extends TestCase
 
         $response
             ->assertOk()
+            ->assertSee('name="industry"', false)
+            ->assertSee('value="Construction &amp; Trades"', false)
             ->assertViewHas('businesses', function (LengthAwarePaginator $businesses): bool {
                 parse_str((string) parse_url($businesses->url(2), PHP_URL_QUERY), $query);
 

@@ -60,5 +60,29 @@
                 </span>
             @endif
         </div>
+
+        <form class="directory-pagination__jump" method="GET" action="{{ $paginator->path() }}" data-page-jump>
+            @foreach (($paginator->getOptions()['query'] ?? []) as $name => $value)
+                @if (is_scalar($value))
+                    <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+                @endif
+            @endforeach
+
+            <label for="directory-page-jump">Go to page</label>
+            <input
+                id="directory-page-jump"
+                type="number"
+                name="{{ $paginator->getPageName() }}"
+                min="1"
+                max="{{ $paginator->lastPage() }}"
+                placeholder="{{ $paginator->currentPage() }}"
+                inputmode="numeric"
+                autocomplete="off"
+                aria-describedby="directory-page-total"
+                required
+            >
+            <span id="directory-page-total">of {{ $paginator->lastPage() }}</span>
+            <button type="submit">Go</button>
+        </form>
     </nav>
 @endif
