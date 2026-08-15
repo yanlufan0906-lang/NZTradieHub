@@ -63,6 +63,7 @@ class BusinessController extends Controller
             [
                 'path' => $request->url(),
                 'query' => $request->except('page'),
+                'fragment' => 'business-results',
             ],
         );
 

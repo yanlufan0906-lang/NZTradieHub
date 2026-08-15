@@ -638,6 +638,10 @@
 }
 
 /* ===== Directory pagination ===== */
+#business-results {
+    scroll-margin-top: 110px;
+}
+
 .directory-pagination {
     display: flex;
     align-items: center;

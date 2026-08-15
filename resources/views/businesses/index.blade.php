@@ -15,7 +15,7 @@
             :business-count="$businesses->total()"
         />
 
-        <div class="business-grid">
+        <div class="business-grid" id="business-results">
             @forelse($businesses as $business)
                 @php($slug = \Illuminate\Support\Str::slug($business['name']))
 
