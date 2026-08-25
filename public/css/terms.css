@@ -1,0 +1,24 @@
+.terms-page .privacy-hero {
+    background:
+        radial-gradient(circle at 82% 10%, rgba(245, 158, 11, 0.3), transparent 34%),
+        linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.terms-page .privacy-eyebrow {
+    color: #fcd34d;
+}
+
+.terms-page .terms-summary {
+    border-color: #fde68a;
+    background: #fffbeb;
+}
+
+.terms-page .terms-summary svg {
+    color: #b45309;
+    background: #fef3c7;
+}
+
+.terms-page .privacy-section-number {
+    color: #92400e;
+    background: #fef3c7;
+}
