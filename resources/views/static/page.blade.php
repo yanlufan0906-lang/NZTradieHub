@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <title>{{ $title }}</title>
-    <link rel="stylesheet" href="{{ asset('css/businesses.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-</head>
-<body>
-    @include('partials.header')
+@extends('layouts.app', ['title' => $title, 'bodyClass' => 'static-info-page'])
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/directory.css') }}">
+@endpush
+
+@section('content')
     <main class="page-container narrow-container">
         <section class="profile-card">
             <span class="business-industry">Information</span>
@@ -22,6 +16,4 @@
             </div>
         </section>
     </main>
-    @include('partials.footer')
-</body>
-</html>
+@endsection

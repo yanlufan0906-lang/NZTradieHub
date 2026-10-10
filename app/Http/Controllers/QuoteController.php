@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\QuoteRequest;
-use App\Support\DemoBusinessRepository;
 use Illuminate\Http\Request;
 
 class QuoteController extends Controller
@@ -14,11 +13,15 @@ class QuoteController extends Controller
         $service = trim((string) $request->query('service', ''));
         $location = trim((string) $request->query('location', ''));
 
-        $businesses = DemoBusinessRepository::all();
+        if ($business === '' && ! $request->old('preferred_business')) {
+            return redirect()->route('businesses.index');
+        }
+
+        $businesses = collect(config('demo-businesses'))->values();
         $selectedBusinessName = old('preferred_business', $business);
 
         $selectedBusiness = $businesses->first(function ($item) use ($selectedBusinessName) {
-            return ($item['name'] ?? '') === $selectedBusinessName;
+            return $item['name'] === $selectedBusinessName;
         });
 
         return view('quotes.create', [
@@ -33,46 +36,30 @@ class QuoteController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'customer_name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:120'],
-            'phone' => ['required', 'string', 'max:40'],
-            'service' => ['required', 'string', 'max:120'],
-            'location' => ['required', 'string', 'max:120'],
-            'preferred_business' => ['required', 'string', 'max:120'],
-            'description' => ['required', 'string', 'max:1500'],
-            'budget' => ['nullable', 'string', 'max:80'],
-        ]);
+        $data = $request->validate(
+            [
+                'customer_name' => ['required', 'string', 'max:120'],
+                'email' => ['required', 'email', 'max:120'],
+                'phone' => ['required', 'string', 'max:40', 'regex:/^(?=(?:.*\d){7,})[\d\s+()\-]+$/'],
+                'service' => ['required', 'string', 'max:120'],
+                'location' => ['required', 'string', 'max:120'],
+                'preferred_business' => ['required', 'string', 'max:120'],
+                'description' => ['required', 'string', 'max:1500'],
+                'budget' => ['nullable', 'string', 'max:80'],
+            ],
+            [
+                'email.required' => 'Required',
+                'email.email' => 'Enter valid email address',
+                'phone.required' => 'Required',
+                'phone.regex' => 'Enter valid phone number',
+            ]
+        );
 
-        try {
-            $quoteRequest = QuoteRequest::create($data);
-            $reference = 'QR-' . str_pad((string) $quoteRequest->id, 5, '0', STR_PAD_LEFT);
-        } catch (\Throwable $exception) {
-            report($exception);
-            $quoteRequest = (object) $data;
-            $reference = 'QR-DEMO-' . now()->format('YmdHis');
-        }
-
-        $quoteForDashboard = array_merge($data, [
-            'reference' => $reference,
-            'created_at' => now()->format('d M Y, h:i A'),
-        ]);
-
-        $savedQuotes = collect(session('demo_quote_requests', []))
-            ->prepend($quoteForDashboard)
-            ->take(10)
-            ->values()
-            ->all();
-
-        session(['demo_quote_requests' => $savedQuotes]);
+        $quoteRequest = QuoteRequest::create($data);
 
         return view('static.submitted', [
             'title' => 'Quote request submitted',
-            'message' => 'Thank you, ' . $quoteRequest->customer_name . '. Your quote request has been submitted. Reference number: ' . $reference . '.',
-            'actions' => [
-                ['label' => 'Back to Businesses', 'url' => route('businesses.index'), 'class' => 'view-profile-btn'],
-                ['label' => 'Business Dashboard', 'url' => route('dashboard'), 'class' => 'get-quote-btn'],
-            ],
+            'message' => 'Thank you, ' . $quoteRequest->customer_name . '. Your quote request has been submitted. Reference number: QR-' . str_pad((string) $quoteRequest->id, 5, '0', STR_PAD_LEFT) . '.',
         ]);
     }
 }

@@ -8,15 +8,20 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $heroPath = public_path('Images/hero');
-        $imageUrls = [];
+        $heroPath = public_path('images/hero');
+        $heroImageUrl = null;
 
         if (File::isDirectory($heroPath)) {
-            foreach (File::files($heroPath) as $image) {
-                $imageUrls[] = asset('Images/hero/' . $image->getFilename());
+            $heroImages = collect(File::files($heroPath))
+                ->filter(fn ($image) => strtolower($image->getExtension()) === 'webp')
+                ->values();
+
+            if ($heroImages->isNotEmpty()) {
+                $heroImage = $heroImages->random();
+                $heroImageUrl = asset('images/hero/' . $heroImage->getFilename());
             }
         }
 
-        return view('home', compact('imageUrls'));
+        return view('home', compact('heroImageUrl'));
     }
 }

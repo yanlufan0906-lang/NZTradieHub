@@ -22,6 +22,7 @@
                     <li><a href="{{ route('businesses.index') }}">Get Quotes</a></li>
                     <li><a href="{{ route('home') }}#how-it-works">How it Works</a></li>
                     <li><a href="{{ route('businesses.index') }}">Browse Businesses</a></li>
+                    <li><a href="{{ route('pages.show', 'customer-faq') }}">Customer FAQ</a></li>
                 </ul>
             </div>
 
@@ -31,15 +32,18 @@
                     <li><a href="{{ route('businesses.register') }}">List Your Business</a></li>
                     <li><a href="{{ route('pages.show', 'receive-leads') }}">Receive Leads</a></li>
                     <li><a href="{{ route('pages.show', 'pricing') }}">Pricing</a></li>
+                    <li><a href="{{ route('pages.show', 'business-faq') }}">Business FAQ</a></li>
                 </ul>
             </div>
 
             <div>
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="{{ route('contributors.index') }}">Who We Are</a></li>
-                    <li><a href="{{ route('pages.show', 'about') }}">About the Platform</a></li>
-                    <li><a href="{{ route('contact.create') }}">Contact Us</a></li>
+                    <li><a href="{{ route('pages.show', 'about') }}">About</a></li>
+                    <li><a href="{{ route('contributors.index') }}">Contributors</a></li>
+                    <li><a href="{{ route('contact.create') }}">Contact</a></li>
+                    <li><a href="{{ route('pages.show', 'terms') }}">Terms &amp; Conditions</a></li>
+                    <li><a href="{{ route('pages.show', 'privacy') }}">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
