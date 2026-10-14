@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "tradynz/business-directory",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "A New Zealand business directory and quote-request application.",
+    "keywords": ["laravel", "new-zealand", "business-directory", "tradies"],
     "license": "MIT",
     "require": {
         "php": "^8.3",

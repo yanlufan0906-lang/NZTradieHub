@@ -1,44 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Zealand Businesses</title>
+@extends('layouts.app', ['title' => 'New Zealand Businesses'])
 
+@push('styles')
+    @if($heroImageUrl)
+        <link rel="preload" as="image" href="{{ $heroImageUrl }}" type="image/webp" fetchpriority="high">
+    @endif
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
-</head>
-<body>
+@endpush
 
-    <!-- Navbar Start -->
-    <nav class="navbar">
-        <div class="navbar-container">
-
-            <div class="navbar-left">
-                <a href="{{ route('home') }}" class="logo-placeholder">NZ Businesses</a>
-
-                <a href="{{ route('businesses.index') }}" class="browse-btn">
-                    Browse
-                </a>
-            </div>
-
-            <div class="navbar-actions">
-                @if(session('demo_user'))
-                    <a href="{{ route('dashboard') }}" class="nav-btn light-btn">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}" class="nav-btn light-btn">Business Login</a>
-                @endif
-                <a href="{{ route('businesses.register') }}" class="nav-btn business-btn">List Your Business</a>
-            </div>
-
-        </div>
-    </nav>
-    <!-- Navbar End -->
-
-
+@section('content')
     <!-- Hero Section Start -->
-    <section class="hero-section" id="heroSection">
+    <section class="hero-section" @if($heroImageUrl) style="background-image: url('{{ $heroImageUrl }}')" @endif>
         <div class="hero-overlay"></div>
 
         <div class="hero-content">
@@ -61,7 +32,7 @@
     >
 
     <div class="location-field">
-        <span class="location-icon">📍</span>
+        <span class="location-icon">&#128205;</span>
 
         <input 
             type="text"
@@ -143,56 +114,56 @@
         <div class="category-grid">
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/builder.jpg') }}" alt="Builder">
+                <img src="{{ asset('images/categories/builder.webp') }}" alt="Builder" width="1200" height="800" loading="eager">
                 <div class="category-content">
                     <h3>Home Services</h3>
                     <p>Find trusted professionals for repairs, maintenance, and home improvement projects.</p>
-                    <a href="{{ route('businesses.index', ['industry' => 'Construction & Trades']) }}">View category →</a>
+                    <a href="{{ route('businesses.index', ['industry' => 'Construction & Trades']) }}">View category &rarr;</a>
                 </div>
             </div>
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/automative.jpg') }}" alt="Automotive">
+                <img src="{{ asset('images/categories/automative.webp') }}" alt="Automotive" width="1200" height="800" loading="eager">
                 <div class="category-content">
                     <h3>Automotive</h3>
                     <p>Connect with experts for vehicle repairs, servicing, and maintenance needs.</p>
-                    <a href="{{ route('businesses.index', ['industry' => 'Automotive']) }}">View category →</a>
+                    <a href="{{ route('businesses.index', ['industry' => 'Automotive']) }}">View category &rarr;</a>
                 </div>
             </div>
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/beautycare.jpg') }}" alt="Beauty Care">
+                <img src="{{ asset('images/categories/beautycare.webp') }}" alt="Beauty Care" width="1200" height="1800" loading="eager">
                 <div class="category-content">
                     <h3>Beauty & Personal Care</h3>
                     <p>Discover salons and specialists for grooming, beauty, and self-care services.</p>
-                    <a href="{{ route('businesses.index', ['industry' => 'Beauty & Wellness']) }}">View category →</a>
+                    <a href="{{ route('businesses.index', ['industry' => 'Beauty & Wellness']) }}">View category &rarr;</a>
                 </div>
             </div>
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/food&hospitality.jpg') }}" alt="Food & Hospitality">
+                <img src="{{ asset('images/categories/food-hospitality.webp') }}" alt="Food & Hospitality" width="1200" height="800" loading="eager">
                 <div class="category-content">
                     <h3>Food & Hospitality</h3>
-                    <p>Explore restaurants, cafés, and catering services for every occasion.</p>
-                    <a href="{{ route('businesses.index', ['industry' => 'Food & Hospitality']) }}">View category →</a>
+                    <p>Explore restaurants, cafes, and catering services for every occasion.</p>
+                    <a href="{{ route('businesses.index', ['industry' => 'Food & Hospitality']) }}">View category &rarr;</a>
                 </div>
             </div>
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/professionalservices.jpg') }}" alt="Professional Services">
+                <img src="{{ asset('images/categories/professionalservices.webp') }}" alt="Professional Services" width="1200" height="800" loading="eager">
                 <div class="category-content">
                     <h3>Professional Services</h3>
                     <p>Access qualified experts for legal, financial, and business-related services.</p>
-                    <a href="{{ route('businesses.index', ['industry' => 'Professional Services']) }}">View category →</a>
+                    <a href="{{ route('businesses.index', ['industry' => 'Professional Services']) }}">View category &rarr;</a>
                 </div>
             </div>
 
             <div class="category-card">
-                <img src="{{ asset('Images/categories/techservices.jpg') }}" alt="Tech Services">
+                <img src="{{ asset('images/categories/techservices.webp') }}" alt="Tech Services" width="1200" height="800" loading="eager">
                 <div class="category-content">
                     <h3>IT & Technology</h3>
                     <p>Get support for digital solutions, including web development, repairs, and IT support.</p>
-                    <a href="{{ route('businesses.index', ['industry' => 'IT & Technology']) }}">View category →</a>
+                    <a href="{{ route('businesses.index', ['industry' => 'IT & Technology']) }}">View category &rarr;</a>
                 </div>
             </div>
 
@@ -296,19 +267,4 @@
         </div>
     </section>
     <!-- How It Works Section End -->
-
-    @include('partials.footer')
-
-
-
-    <script>
-        const heroImages = @json($imageUrls);
-
-        if (heroImages.length > 0) {
-            const randomImage = heroImages[Math.floor(Math.random() * heroImages.length)];
-            document.getElementById("heroSection").style.backgroundImage = `url('${randomImage}')`;
-        }
-    </script>
-
-</body>
-</html>
+@endsection

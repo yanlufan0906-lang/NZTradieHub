@@ -34,7 +34,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 0 64px;
+    padding: 104px 64px 0;
     background:
         radial-gradient(circle at 15% 12%, rgba(37, 99, 235, 0.24), transparent 31%),
         radial-gradient(circle at 82% 74%, rgba(59, 130, 246, 0.18), transparent 30%),
@@ -88,12 +88,20 @@ body {
 }
 
 .coming-soon-header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 10;
+    width: min(1240px, calc(100% - 128px));
     min-height: 104px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(7, 18, 41, 0.84);
+    backdrop-filter: blur(18px);
+    transform: translateX(-50%);
 }
 
 .coming-soon-brand {
@@ -393,7 +401,12 @@ body {
 
 @media (max-width: 980px) {
     .coming-soon-page {
-        padding: 0 32px;
+        padding-right: 32px;
+        padding-left: 32px;
+    }
+
+    .coming-soon-header {
+        width: calc(100% - 64px);
     }
 
     .coming-soon-content {
@@ -430,10 +443,11 @@ body {
 
 @media (max-width: 640px) {
     .coming-soon-page {
-        padding: 0 20px;
+        padding: 88px 20px 0;
     }
 
     .coming-soon-header {
+        width: calc(100% - 40px);
         min-height: 88px;
     }
 

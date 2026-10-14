@@ -1,101 +1,56 @@
-# Project Review Notes
+# Project Review
 
 ## Current direction
 
-This version keeps the **List Your Business / Register Business** buttons, but does not develop the business registration feature in this module. That flow is treated as a separate part of the project.
+NZ Businesses is currently a business-directory and request-submission prototype. Its production-ready scope is limited to browsing demo businesses and storing contact and quote requests.
 
-The main focus of this module is:
+## Implemented
 
-1. Demo business data for testing.
-2. Business search and filtering.
-3. Business profile pages.
-4. Quote request flow.
-5. Footer navigation links going to real pages or sections.
+### Business directory
 
-## Implemented in this version
+- Demo business records are maintained in `config/demo-businesses.php`.
+- Directory filtering supports service text, location, industry, and category.
+- Business profile pages expose services, service areas, contact details, ratings, and quote links.
+- Invalid business slugs return a 404 response.
 
-### Business demo data
+### Quote requests
 
-`config/demo-businesses.php` now contains richer fake business data, including:
+- Quote links prefill the selected business, service, and location.
+- Client-side and server-side validation are present.
+- Valid requests are stored in the `quote_requests` table.
+- Successful submissions display a generated reference number.
 
-- business name
-- industry
-- category
-- location
-- service areas
-- description
-- service list
-- tags for search
-- phone and email
-- rating
-- demo jobs completed
-- response time
+### Contact messages
 
-This is enough for search/filter testing without building the real business database yet.
+- The contact page uses a single-page form with shared client-side validation.
+- Server-side validation is handled by `ContactController`.
+- Valid messages are stored in the `contact_messages` table.
+- Successful submissions display a generated reference number.
 
-### Search and filters
+### Shared frontend structure
 
-The business listing page supports:
+- `resources/views/layouts/app.blade.php` owns the document shell and shared assets.
+- Shared header and footer partials provide site navigation.
+- Shared CSS is separated from page-specific styles.
+- `public/js/form-validation.js` provides common form-validation behavior.
 
-- service keyword search
-- location/suburb search
-- industry filter
-- category filter
-- quick filter buttons for common searches
+## Prototype boundaries
 
-The search checks business name, industry, category, description, services, and tags. Location search checks both the main location and service areas.
+### Business registration
 
-### Quote flow
+`/businesses/register` displays a six-step interface, but JavaScript prevents final submission and shows a local success state. No registration data or uploaded files are persisted. The existing POST route returns an informational confirmation only.
 
-The quote flow includes:
+### Login
 
-- `/quote` form
-- quote buttons from business cards
-- quote buttons from profile pages
-- pre-filled business, service, and location query parameters
-- matching demo business suggestions on the quote page
-- validation
-- saving to `quote_requests` table after migrations are run
-- confirmation page with reference number
+`/login` displays a validated login interface, but no authentication request is submitted and no authenticated session is created.
 
-### Footer navigation
+### Business data
 
-A reusable footer partial has been added at:
+There is no businesses table or management interface. Directory content remains configuration-backed demo data.
 
-`resources/views/partials/footer.blade.php`
+## Operational notes
 
-Footer links now point to real pages or filters:
-
-- Electricians
-- Plumbers
-- Builders
-- Cleaners
-- Get Quotes
-- How it Works
-- Browse Businesses
-- List Your Business
-- Receive Leads
-- Pricing
-- About
-- Contact
-- Privacy Policy
-
-## Kept but not implemented here
-
-### List Your Business / Register Business
-
-The buttons are still visible in the navbar, homepage, and footer.
-
-However, `/businesses/register` is now a placeholder page explaining that this feature is handled separately. No business registration data is saved by this module.
-
-## Still not implemented
-
-These would be later development tasks:
-
-- real business database table
-- real business registration flow
-- admin dashboard to view quote requests and contact messages
-- authentication/login
-- email notifications
-- API connection to Tradie Assist or another backend
-- quote matching workflow after a customer submits a request
+- Active frontend assets are loaded directly from `public/css`, `public/js`, and `public/images`.
+- The default Laravel Vite scaffold remains present but is not used by active pages.
+- `vendor`, runtime logs, compiled views, framework caches, and the local SQLite database are generated or environment-managed content rather than application source.
+- Remaining decisions and cleanup work are tracked in `TODO.md`.

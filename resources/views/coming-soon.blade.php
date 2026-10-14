@@ -7,6 +7,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Coming Soon | NZ Businesses</title>
     <link rel="stylesheet" href="{{ asset('css/coming-soon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive-typography.css') }}">
 </head>
 <body>
     <main class="coming-soon-page">

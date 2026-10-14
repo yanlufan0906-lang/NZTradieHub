@@ -1,117 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Listings</title>
-    <link rel="stylesheet" href="{{ asset('css/businesses.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
-</head>
-<body>
+@extends('layouts.app', ['title' => 'Business Listings'])
 
-    <nav class="page-navbar">
-        <a href="{{ route('home') }}" class="brand-link">NZ Businesses</a>
-        <div class="page-nav-links">
-            <a href="{{ route('businesses.index') }}">Browse</a>
-            @if(session('demo_user'))
-                <a href="{{ route('dashboard') }}">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}">Business Login</a>
-            @endif
-            <a href="{{ route('businesses.register') }}" class="primary-link">List Your Business</a>
-        </div>
-    </nav>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/directory.css') }}">
+@endpush
 
+@section('content')
     <main class="page-container">
-        <div class="page-heading">
-            <span>Business Directory</span>
-            <h1>Search businesses</h1>
-            <p>
-                Showing results for
-                <strong>{{ $service ?: 'all services' }}</strong>
-                @if($location)
-                    in <strong>{{ $location }}</strong>
-                @endif
-            </p>
-        </div>
+        <x-business-directory-search
+            :industries="$industries"
+            :service="$service"
+            :location="$location"
+            :selected-industry="$selectedIndustry"
+            :selected-category="$selectedCategory"
+            :business-count="$businesses->total()"
+        />
 
-        <form action="{{ route('businesses.index') }}" method="GET" class="filter-box">
-            <input
-                type="text"
-                name="service"
-                placeholder="Service, keyword, or business name"
-                value="{{ $service }}"
-            >
-
-            <input
-                type="text"
-                name="location"
-                placeholder="Location or suburb"
-                value="{{ $location }}"
-            >
-
-            <select name="industry">
-                <option value="">All Industries</option>
-
-                @foreach($industries as $industryName => $categories)
-                    <option value="{{ $industryName }}" {{ $selectedIndustry == $industryName ? 'selected' : '' }}>
-                        {{ $industryName }}
-                    </option>
-                @endforeach
-            </select>
-
-            <select name="category">
-                <option value="">All Categories</option>
-
-                @foreach($industries as $industryName => $categories)
-                    @foreach($categories as $category)
-                        <option value="{{ $category }}" {{ $selectedCategory == $category ? 'selected' : '' }}>
-                            {{ $category }}
-                        </option>
-                    @endforeach
-                @endforeach
-            </select>
-
-            <button type="submit">Apply Filters</button>
-        </form>
-
-        <div class="quick-filter-row">
-            <a href="{{ route('businesses.index', ['category' => 'Plumbing', 'location' => 'Auckland']) }}">Plumbers in Auckland</a>
-            <a href="{{ route('businesses.index', ['category' => 'Electrical']) }}">Electricians</a>
-            <a href="{{ route('businesses.index', ['category' => 'Renovations']) }}">Builders / Renovations</a>
-            <a href="{{ route('businesses.index', ['category' => 'Home Cleaning']) }}">Cleaners</a>
-            <a href="{{ route('businesses.index', ['service' => 'roof']) }}">Roofing</a>
-        </div>
-
-        <div class="result-summary">
-            <span>{{ $businesses->count() }} business{{ $businesses->count() === 1 ? '' : 'es' }} found</span>
-            <a href="{{ route('businesses.index') }}">Clear filters</a>
-        </div>
-
-        <div class="business-grid">
+        <div class="business-grid" id="business-results">
             @forelse($businesses as $business)
                 @php($slug = \Illuminate\Support\Str::slug($business['name']))
 
-                <div class="business-card">
-                    <div class="business-top">
-                        <div>
-                            <span class="business-industry">
-                                {{ $business['industry'] }}
-                            </span>
+                <article class="business-card business-directory-card" data-business-card aria-labelledby="business-card-title-{{ $loop->index }}">
+                    <header class="business-card-header">
+                        <div class="business-card-identity">
+                            <div class="business-card-avatar" aria-hidden="true">
+                                {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($business['name'], 0, 1)) }}
+                            </div>
 
-                            <h2>{{ $business['name'] }}</h2>
+                            <div class="business-card-heading">
+                                <span class="business-industry">{{ $business['industry'] }}</span>
+                                <h2 id="business-card-title-{{ $loop->index }}">{{ $business['name'] }}</h2>
+                            </div>
                         </div>
 
-                        <div class="verified-badge">
-                            {{ ! empty($business['is_session_listing']) ? 'New Listing' : 'Verified' }}
-                        </div>
-                    </div>
+                        <span class="verified-badge">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="m7.5 12 3 3 6-6"></path>
+                                <path d="M12 3.5 14.1 5l2.6-.1.8 2.5 2.2 1.4-.9 2.5.9 2.5-2.2 1.4-.8 2.5-2.6-.1L12 19.5l-2.1-1.9-2.6.1-.8-2.5-2.2-1.4.9-2.5-.9-2.5 2.2-1.4.8-2.5 2.6.1L12 3.5Z"></path>
+                            </svg>
+                            Verified
+                        </span>
+                    </header>
 
-                    <div class="business-meta">
-                        <span>{{ $business['category'] }}</span>
-                        <span>📍 {{ $business['location'] }}</span>
+                    <div class="business-meta business-card-meta">
+                        <span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 7h16v12H4zM8 7V5h8v2"></path>
+                            </svg>
+                            {{ $business['category'] }}
+                        </span>
+                        <span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                                <circle cx="12" cy="10" r="2.5"></circle>
+                            </svg>
+                            {{ $business['location'] }}
+                        </span>
                         @if(! empty($business['rating']))
-                            <span>★ {{ number_format($business['rating'], 1) }}</span>
+                            <span class="business-card-rating">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+                                </svg>
+                                {{ number_format($business['rating'], 1) }}
+                            </span>
                         @endif
                     </div>
 
@@ -119,46 +69,75 @@
                         {{ $business['description'] }}
                     </p>
 
-                    @if(! empty($business['is_session_listing']))
-                        <p class="session-listing-note">Recently added</p>
-                    @endif
-
                     @if(! empty($business['services']))
-                        <div class="tag-row">
-                            @foreach(array_slice($business['services'], 0, 4) as $item)
-                                <span>{{ $item }}</span>
-                            @endforeach
-                        </div>
+                        <section class="business-card-services" aria-label="Popular services">
+                            <span class="business-card-label">Popular services</span>
+                            <div class="tag-row business-card-tags">
+                                @foreach(array_slice($business['services'], 0, 4) as $item)
+                                    <span>{{ $item }}</span>
+                                @endforeach
+                            </div>
+                        </section>
                     @endif
 
                     @if(! empty($business['service_areas']))
-                        <p class="area-line">
-                            <strong>Service areas:</strong> {{ implode(', ', array_slice($business['service_areas'], 0, 5)) }}
-                        </p>
+                        <div class="business-card-coverage">
+                            <span class="business-card-coverage__icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                                    <circle cx="12" cy="10" r="2.5"></circle>
+                                </svg>
+                            </span>
+                            <div>
+                                <strong>Service areas</strong>
+                                <p>{{ implode(', ', array_slice($business['service_areas'], 0, 5)) }}</p>
+                            </div>
+                        </div>
                     @endif
 
-                    <div class="business-contact">
+                    <div class="business-contact business-card-contact">
                         <div>
-                            <strong>Phone:</strong><br>
-                            {{ $business['phone'] }}
+                            <span class="business-card-contact__icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M7 3h3l1.5 4-2 1.5a15 15 0 0 0 6 6l1.5-2 4 1.5v3c0 2.2-1.8 4-4 4C9.3 21 3 14.7 3 7c0-2.2 1.8-4 4-4Z"></path>
+                                </svg>
+                            </span>
+                            <span>
+                                <strong>Phone</strong>
+                                {{ $business['phone'] }}
+                            </span>
                         </div>
 
                         <div>
-                            <strong>Email:</strong><br>
-                            {{ $business['email'] }}
+                            <span class="business-card-contact__icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M3 5h18v14H3z"></path>
+                                    <path d="m4 7 8 6 8-6"></path>
+                                </svg>
+                            </span>
+                            <span>
+                                <strong>Email</strong>
+                                {{ $business['email'] }}
+                            </span>
                         </div>
                     </div>
 
-                    <div class="business-actions">
+                    <footer class="business-actions business-card-actions">
                         <a href="{{ route('businesses.show', $slug) }}" class="view-profile-btn">
                             View Profile
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="m9 18 6-6-6-6"></path>
+                            </svg>
                         </a>
 
                         <a href="{{ route('quote.create', ['business' => $business['name'], 'service' => $business['category'], 'location' => $business['location']]) }}" class="get-quote-btn">
                             Get Quotation
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M5 12h14m-5-5 5 5-5 5"></path>
+                            </svg>
                         </a>
-                    </div>
-                </div>
+                    </footer>
+                </article>
             @empty
                 <div class="empty-state">
                     <h2>No businesses found</h2>
@@ -170,8 +149,9 @@
                 </div>
             @endforelse
         </div>
-    </main>
 
-    @include('partials.footer')
-</body>
-</html>
+        @if($businesses->hasPages())
+            {{ $businesses->links('components.directory-pagination') }}
+        @endif
+    </main>
+@endsection

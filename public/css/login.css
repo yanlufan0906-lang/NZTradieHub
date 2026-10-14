@@ -1,4 +1,157 @@
-/* Login page specific styles to match home/business branding */
+/* Login page */
+.login-page {
+    min-height: calc(100vh - 110px);
+    padding: 64px 30px;
+    background-color: #f7f9fc;
+}
+
+.login-page .container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-page button {
+    border: 0;
+    cursor: pointer;
+}
+
+.login-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+    width: min(100%, 980px);
+    min-height: 460px;
+    border: 1px solid var(--color-divider);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-white);
+}
+
+.login-panel__intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px;
+    color: var(--color-white);
+    background-color: var(--color-header);
+}
+
+.login-panel__eyebrow {
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.login-panel__intro h1 {
+    max-width: 440px;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.16;
+}
+
+.login-panel__intro p {
+    max-width: 440px;
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 48px;
+}
+
+.login-form__field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.login-form__field input {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-form__field input:focus {
+    outline: 2px solid rgba(37, 99, 235, 0.18);
+    border-color: var(--color-primary);
+}
+
+.login-form .form-field--error input {
+    border-color: var(--color-danger);
+}
+
+.login-form .form-field--error input:focus {
+    outline-color: rgba(226, 75, 74, 0.18);
+    border-color: var(--color-danger);
+}
+
+.login-form .field-error {
+    display: none;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--color-danger);
+}
+
+.login-form .form-field--error .field-error {
+    display: block;
+}
+
+.login-form__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--color-muted);
+}
+
+.login-form__meta a {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.login-form__remember {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.login-form__remember input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+}
+
+.login-form .submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    color: var(--color-text);
+    background-color: #fbbf24;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Trady branding */
 
 .login-page--trady {
     background-color: #ffffff;
@@ -16,7 +169,6 @@
     background: linear-gradient(135deg, #2563eb 0%, #2e3d8f 55%, #1d4ed8 100%);
 }
 
-/* match primary button color from home */
 .login-page--trady .login-panel .submit-button {
     background-color: #fbbf24;
     color: #111827;
@@ -26,74 +178,48 @@
     border-color: #2563eb;
 }
 
-/* light mobile tweaks */
 @media (max-width: 900px) {
+    .login-page {
+        padding: 42px 28px;
+    }
+
+    .login-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .login-panel__intro,
+    .login-form {
+        padding: 36px;
+    }
+
     .login-page--trady {
         background-image: none;
         background-color: #f7f9fc;
     }
 }
 
+@media (max-width: 640px) {
+    .login-page {
+        padding: 28px 18px;
+    }
 
-.demo-login-box,
-.login-status,
-.login-error-summary {
-    border-radius: 14px;
-    padding: 14px 16px;
-    margin-bottom: 18px;
+    .login-panel__intro,
+    .login-form {
+        padding: 26px 20px;
+    }
+
+    .login-panel__intro h1 {
+        font-size: 28px;
+    }
+
+    .login-panel__intro p {
+        font-size: 14px;
+    }
 }
 
-.demo-login-box {
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
-}
-
-.demo-login-box strong {
-    display: block;
-    color: #0f172a;
-    margin-bottom: 6px;
-}
-
-.demo-login-box p {
-    color: #475569;
-    margin: 0 0 10px;
-    line-height: 1.5;
-}
-
-.demo-login-row {
-    display: grid;
-    gap: 6px;
-    color: #334155;
-    font-size: 14px;
-    margin-bottom: 12px;
-}
-
-.demo-fill-btn {
-    border: 1px solid #cbd5e1;
-    background: #ffffff;
-    color: #0f172a;
-    border-radius: 999px;
-    padding: 8px 14px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.login-status {
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-    color: #1d4ed8;
-}
-
-.login-error-summary {
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #b91c1c;
-}
-
-.quick-access-box {
-    margin: 18px 0;
-}
-
-.quick-access-form {
-    margin: 0;
+@media (max-width: 420px) {
+    .login-form__meta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 }
